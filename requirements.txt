@@ -1,0 +1,8 @@
+pyimobiledevice
+subprocess
+os
+frida # for futur memory analytics
+sqlite3
+plistlib
+shutil
+glob
