@@ -197,6 +197,40 @@ def extractMedia(extractFolder='./extract', outputDir="../output"):
     cnt = 0
     
     # Sent to it
+    # METADATA FIRST
+    for media in medias:
+        ZDIRECTORY, ZFILENAME = media
+        if ZDIRECTORY and ZFILENAME:
+            # Local path
+            relative_path = os.path.join(ZDIRECTORY, ZFILENAME)
+            file_path_output = os.path.join(outputDir, "CameraRollDomain/Media/PhotoData/Metadata", relative_path)
+
+            # Dest -> dest_medias
+            dest = os.path.join(dest_medias)
+            
+            try : 
+                if os.path.exists(file_path_output):
+                    shutil.copy(file_path_output, dest)
+                    #print(f"[+] File {relative_path} copied")
+                    cnt +=1
+                else :
+                    pass
+                    #print(f"[!] File {file_path_output} not found in backup")
+            except Exception as e :
+                print(f">>>> Exception : {e} <<<<< ")
+
+
+    print(f"[!] First check (Metadata) - Media extraction over - You'll find them here : {dest_medias}")
+    print(f"[+] {len(medias)} medias found, {cnt} media copied")
+    print(f"[!] Some files are currenlty stocked in the ICloud - Can't be accessed locally")
+
+
+    # OUI,C'EST MOCHE, MAIS ON VA CORRIGER TKT
+    # Media access now
+    max = cnt
+    cnt = 0
+    
+    # Sent to it
     for media in medias:
         ZDIRECTORY, ZFILENAME = media
         if ZDIRECTORY and ZFILENAME:
@@ -210,7 +244,7 @@ def extractMedia(extractFolder='./extract', outputDir="../output"):
             try : 
                 if os.path.exists(file_path_output):
                     shutil.copy(file_path_output, dest)
-                    print(f"[+] File {relative_path} copied")
+                    #print(f"[+] File {relative_path} copied")
                     cnt +=1
                 else :
                     pass
@@ -220,9 +254,12 @@ def extractMedia(extractFolder='./extract', outputDir="../output"):
 
     conn.close()
 
-    print(f"[!] Media extraction over - You'll find them here : {dest_medias}")
+    print(f"[!] Second check (DB Access) - Media extraction over - You'll find them here : {dest_medias}")
     print(f"[+] {len(medias)} medias found, {cnt} media copied")
+    print(f"[!] Some files are currenlty stocked in the ICloud - Can't be accessed locally")
 
+    print(" ")
+    print(f"[--] Total file acquired : {max + cnt}")
     return
 
 
@@ -233,7 +270,7 @@ if __name__ == "__main__" :
           |                              |
           |     IForen - IOS Analyzer    |
           |                              |
-          --------------------extractFolder-----------
+          -------------------------------
           by Afk-Flo
           """)
     
