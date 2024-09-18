@@ -18,6 +18,14 @@
 import os
 import sqlite3
 import plistlib
+import logging
+
+logging.basicConfig(
+    filename='IOS_data_acquisition.log',
+    filemode='a',
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
 
 # Data acquisition for SMS/MMS and IMessage 
@@ -25,6 +33,7 @@ import plistlib
 # v2@TODO - Filter will be available in order to filter : from/To, type, deleted, etc..
 def smsExtractor(extractFolder='./extract', outputDir="../output"):
     print("[+] SMS/MMS and IMessage extraction..")
+    logging.info('SMS/MMS and Images Acquisition')
 
     sms_db_path = os.path.join(outputDir, "HomeDomain/Library/SMS/sms.db")
     if not os.path.exists(sms_db_path):
@@ -71,6 +80,7 @@ def smsExtractor(extractFolder='./extract', outputDir="../output"):
 # V2@TODO = Mix contact with Message in order to recreate conversation
 def contactAcquisition(extractFolder='./extract', outputDir="../output"):
     print("[+] Contact acquisition ..")
+    logging.info('Contact Acquisition')
 
     # Path lookup
     contact_db_path = os.path.join(outputDir, "HomeDomain/Library/AddressBook/AddressBook.sqlitedb")
@@ -110,6 +120,8 @@ def contactAcquisition(extractFolder='./extract', outputDir="../output"):
 # v2@TODO = Mix contact with call history in order to recreate it properly
 def callHistoryAcquisition(extractFolder='./extract', outputDir="../output"):
     print("[+] Call history acquisition ..")
+    logging.info('Call history Acquisition')
+
 
     # Path lookup
     history_db_path = os.path.join(outputDir, "HomeDomain/Library/CallHistoryDB/CallHistory.storedata")
@@ -150,6 +162,8 @@ def callHistoryAcquisition(extractFolder='./extract', outputDir="../output"):
 # v2@TODO = Try to find deleted notes from the user
 def notesAcquisition(extractFolder='./extract', outputDir="../output"):
     print("[+] User notes aquisition ..")
+    logging.info('User notes Acquisition')
+
 
     notes_db = os.path.join(outputDir, 'HomeDomain/Library/Notes/notes.sqlite')
     if not os.path.exists(notes_db):
@@ -190,6 +204,8 @@ def notesAcquisition(extractFolder='./extract', outputDir="../output"):
 # v2@TODO = find more informations and potential data (messages, files,etc..)
 def applicationAcquisition(extractFolder='./extract', backupDir="./backup"):
     print("[+] Application aquisiton ..")
+    logging.info('Applications Acquisition')
+
 
     # We'll find the application in the Manifest.db directly, npo need for other db
     manifest_db = os.path.join(backupDir, 'Manifest.db')
@@ -230,6 +246,8 @@ def applicationAcquisition(extractFolder='./extract', backupDir="./backup"):
 # v2@TODO = Try to get more info and deleted informations
 def calendarAcquisition(extractFolder='./extract', outputDir="../output"):
     print("[+] Calendar aquisition .. ")
+    logging.info('Calendar Acquisition')
+
 
     calendar_db = os.path.join(outputDir, 'HomeDomain/Library/Calendar/Calendar.sqlitedb')
     if not os.path.exists(calendar_db):
@@ -270,7 +288,8 @@ def calendarAcquisition(extractFolder='./extract', outputDir="../output"):
 def mailAcquisition(extractFolder='./extract', outputDir="../output"):
     # Need more investigation in order to find the right path (change for IOS Versionning)
     # Manifest.dn => sql query for LIKE 'HOMEDOmain/LIbary/Mail/%' in order to adapt
-    
+    logging.info('Mail Acquisition')
+
     pass
 
 
@@ -280,6 +299,7 @@ def mailAcquisition(extractFolder='./extract', outputDir="../output"):
 # v2@TODO = Find more information with precise timestamp
 def wirelessAcquition(extractFolder='./extract', outputDir="../output"):
     print("[+] Wireless Data Acquisition ..")
+    logging.info('Wireless Acquisition')
 
     wireless_db = os.path.join(outputDir, 'SystemPreferencesDOmain/SystemConfiguration/com.apple.wifi.plist')
     if not os.join.exists(wireless_db):
@@ -314,15 +334,18 @@ def wirelessAcquition(extractFolder='./extract', outputDir="../output"):
 # Safari Bookmark and History collect 
 # [!] Note that History acquisition is only available for Encrypted backup
 def safariAcquisiton(extractFolder='./extract', outputDir="../output"):
+    logging.info('Safari (Bookmark/History) Acquisition')
     pass
 
 # GPS datas
 # [!] Caefull with this one
 def localisationAcquisition(extractFolder='./extract', outputDir="../output"):
+    logging.info('Localisation Acquisition')
     pass
 
 # Recording for User
 #
 def recordingAcquisition(extractFolder='./extract', outputDir="../output"):
+    logging.info('Recording Acquisition')    
     pass
 
