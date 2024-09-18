@@ -309,3 +309,20 @@ def wirelessAcquition(extractFolder='./extract', outputDir="../output"):
     print(f"[+] You can find them here {dest_file}")
 
     return True
+
+
+# Safari Bookmark and History collect 
+# [!] Note that History acquisition is only available for Encrypted backup
+def safariAcquisiton(extractFolder='./extract', outputDir="../output"):
+    pass
+
+# GPS datas
+# [!] Caefull with this one
+def localisationAcquisition(extractFolder='./extract', outputDir="../output"):
+    pass
+
+# Recording for User
+#
+def recordingAcquisition(extractFolder='./extract', outputDir="../output"):
+    pass
+
