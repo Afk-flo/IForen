@@ -31,7 +31,7 @@ logging.basicConfig(
 # Data acquisition for SMS/MMS and IMessage 
 # v1 - All the message will be capted
 # v2@TODO - Filter will be available in order to filter : from/To, type, deleted, etc..
-def smsExtractor(extractFolder='./extract', outputDir="../output"):
+def smsExtractor(extractFolder='./extract', outputDir="./output"):
     print("[+] SMS/MMS and IMessage extraction..")
     logging.info('SMS/MMS and Images Acquisition')
 
@@ -78,7 +78,7 @@ def smsExtractor(extractFolder='./extract', outputDir="../output"):
 # Contact Acquisition 
 # v1 = Get contact file 
 # V2@TODO = Mix contact with Message in order to recreate conversation
-def contactAcquisition(extractFolder='./extract', outputDir="../output"):
+def contactAcquisition(extractFolder='./extract', outputDir="./output"):
     print("[+] Contact acquisition ..")
     logging.info('Contact Acquisition')
 
@@ -118,7 +118,7 @@ def contactAcquisition(extractFolder='./extract', outputDir="../output"):
 # Call History Acquisition
 # v1 = Get all call 
 # v2@TODO = Mix contact with call history in order to recreate it properly
-def callHistoryAcquisition(extractFolder='./extract', outputDir="../output"):
+def callHistoryAcquisition(extractFolder='./extract', outputDir="./output"):
     print("[+] Call history acquisition ..")
     logging.info('Call history Acquisition')
 
@@ -134,7 +134,7 @@ def callHistoryAcquisition(extractFolder='./extract', outputDir="../output"):
     cursor = conn.cursor()
 
     query = """
-    SELECT ZADDRESS, ZDATE, ZDURATION
+    SELECT ZADDRESS, ZDATE, ZDURATION, ZLOCATION, ZSERVICE_PROVIDER
     FROM ZCALLRECORD
     """
 
@@ -160,7 +160,7 @@ def callHistoryAcquisition(extractFolder='./extract', outputDir="../output"):
 # User notes acquisition
 # v1 = Find the notes of the user 
 # v2@TODO = Try to find deleted notes from the user
-def notesAcquisition(extractFolder='./extract', outputDir="../output"):
+def notesAcquisition(extractFolder='./extract', outputDir="./output"):
     print("[+] User notes aquisition ..")
     logging.info('User notes Acquisition')
 
@@ -244,7 +244,7 @@ def applicationAcquisition(extractFolder='./extract', backupDir="./backup"):
 # Calendar acquisition 
 # v1 = Find and list element acquired
 # v2@TODO = Try to get more info and deleted informations
-def calendarAcquisition(extractFolder='./extract', outputDir="../output"):
+def calendarAcquisition(extractFolder='./extract', outputDir="./output"):
     print("[+] Calendar aquisition .. ")
     logging.info('Calendar Acquisition')
 
@@ -285,7 +285,7 @@ def calendarAcquisition(extractFolder='./extract', outputDir="../output"):
 # Mail aquisition
 # v1 = Find information about mail account/Usage
 # v2@TODO = Try to find more informations about account usage and mails datas
-def mailAcquisition(extractFolder='./extract', outputDir="../output"):
+def mailAcquisition(extractFolder='./extract', outputDir="./output"):
     # Need more investigation in order to find the right path (change for IOS Versionning)
     # Manifest.dn => sql query for LIKE 'HOMEDOmain/LIbary/Mail/%' in order to adapt
     logging.info('Mail Acquisition')
@@ -297,7 +297,7 @@ def mailAcquisition(extractFolder='./extract', outputDir="../output"):
 # @TODO - FILE MANAGEMENT
 # v1 = Find wireless information (connexion, SSID, timestamp)
 # v2@TODO = Find more information with precise timestamp
-def wirelessAcquition(extractFolder='./extract', outputDir="../output"):
+def wirelessAcquition(extractFolder='./extract', outputDir="./output"):
     print("[+] Wireless Data Acquisition ..")
     logging.info('Wireless Acquisition')
 
@@ -333,19 +333,44 @@ def wirelessAcquition(extractFolder='./extract', outputDir="../output"):
 
 # Safari Bookmark and History collect 
 # [!] Note that History acquisition is only available for Encrypted backup
-def safariAcquisiton(extractFolder='./extract', outputDir="../output"):
+def safariAcquisiton(extractFolder='./extract', outputDir="./output"):
     logging.info('Safari (Bookmark/History) Acquisition')
+
+    # Target File
+    # Library/Safari/History.db
+
     pass
 
 # GPS datas
 # [!] Caefull with this one
-def localisationAcquisition(extractFolder='./extract', outputDir="../output"):
+def localisationAcquisition(extractFolder='./extract', outputDir="./output"):
     logging.info('Localisation Acquisition')
+
+    # Target File
+    # Library/Caches/locationid/clients.pslit
+
+    # DB -> History Items
+
     pass
 
 # Recording for User
 #
-def recordingAcquisition(extractFolder='./extract', outputDir="../output"):
-    logging.info('Recording Acquisition')    
+def recordingAcquisition(extractFolder='./extract', outputDir="./output"):
+    logging.info('Recording Acquisition')
+
+    # Target File
+    # "Library/Recordings/X"
+
+    # 
     pass
+
+
+##### Encrypted backup only
+def whatsappMessageAcquisition(extractFolder='./extract', outputDir="./output"):
+    logging.info('Whatapps messages Acquisition')
+    print("[+] WhatsApp message Acquisition ..")
+
+    # Target File
+    # ChatStorage.sqlite
+
 
