@@ -1,7 +1,7 @@
 
-# IForen - IOS Forensic ToolKit
+# iForen - iOS Forensic ToolKit
 
-IForen is a digital investigation tool specializing in IOS phones. This tool will provide you with a web interface to carry out investigations of your IOS backups.
+iForen is a digital investigation tool specializing in iOS phones. This tool will provide you with a web interface to carry out investigations of your iOS backups.
 
 
 
