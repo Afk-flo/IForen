@@ -6,9 +6,8 @@ from func.utils.utils import create_connection, folder_check
 
 PATH = "HomeDomain/Library/SMS/sms.db"
 
-class SMSExtractor:
-    def __init__(self, file_path, backup_path, log, result, extract_folder):
-        self.file_path = file_path
+class SMS:
+    def __init__(self, backup_path, log, result, extract_folder):
         self.log = log
         self.result = result
         self.backup_path = backup_path
@@ -16,7 +15,7 @@ class SMSExtractor:
 
     def extract(self):
         """ SMS Database extraction for iOS device """
-        conn = create_connection(backup_path=self.backup_path, db_file=self.file_path)
+        conn = create_connection(backup_path=self.backup_path, db_file=PATH)
         if conn is None:
             print("[-] Couldn't fetch SMS [-]")
             sys.exit(1)
@@ -31,7 +30,7 @@ class SMSExtractor:
             message.text as text
         FROM message
         LEFT JOIN handle ON message.handle = handle.id
-        ORDER BY message_date ASC
+        ORDER BY message_date ASC;
         """
 
         """
