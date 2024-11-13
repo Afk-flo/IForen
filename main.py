@@ -1,51 +1,72 @@
+import argparse
+import sys
+from datetime import datetime
 import os
 
-# func
+banner = """
+ ________  ______   ______   ______    ______   ___   __      
+/_______/\/_____/\ /_____/\ /_____/\  /_____/\ /__/\ /__/\    
+\__.::._\/\::::_\/_\:::_ \ \\:::_ \ \ \::::_\/_\::\_\\  \ \   
+   \::\ \  \:\/___/\\:\ \ \ \\:(_) ) )_\:\/___/\\:. `-\  \ \  
+   _\::\ \__\:::._\/ \:\ \ \ \\: __ `\ \\::___\/_\:. _    \ \ 
+  /__\::\__/\\:\ \    \:\_\ \ \\ \ `\ \ \\:\____/\\. \`-\  \ \
+  \________\/ \_\/     \_____\/ \_\/ \_\/ \_____\/ \__\/ \__\/
+                                                   iOS Analyzer
+                                                   by @Afk-Flo
+                                                    
+                                                              """
 
 
-if __name__ == "__main__" :
-    # clear 
-    print("""
-          -------------------------------
-          |                              |
-          |     IForen - IOS Analyzer    |
-          |                              |
-          -------------------------------
-          by Afk-Flo
-          """)
-    
-    # Var
-    backupFolder = "./backup"
-    outputDir = "./output"
-    extractFolder = "./extract"
-    
-    # Check if backup exist, if not create it
-    checkConfig()
-    resultat = mobileIdentification()
+if __name__ == '__main__':
+    # Welcome aboard
+    print(banner)
 
-    if resultat == 0:
+    parser = argparse.ArgumentParser(
+        description="iForen - iOS investigation tool kit"
+    )
 
-        # Create backup is not already here
-        if not os.path.exists(backupFolder):  
-            print("[--] Do you want to encrypt the backup ? (Enter password for Y/ enter for N)")
-            password = input(">")
-            backupFolder = createBackup(password=password)
+    parser.add_argument("-b", "--backup", required=True, help="Backup folder for the investigation")
+    parser.add_argument("-o", "--output", required=False, help="Output folder for the backup process")
+    parser.add_argument("-e", "--extract-folder", required=False, help="Extract folder for the result of the investigation")
 
-        # If backup is here, analyse
-        print("[+] Backup déjà présente .. Analyse")
-        manifest = manageManifest(backupFolder,outputDir)
-        smsExtractor(backupFolder, outputDir)
-        extractMedia(extractFolder, outputDir)
+    args = parser.parse_args()
 
-        
-    else : 
-        # If backup is here and no phone
-        print("[+] Backup found & no mobile analysis")
-        #manifest = manageManifest(backupFolder,outputDir) - testing purpose
+    if not args.backup:
+        print("[ERROR] Backup folder is required in order to proceed to the investigation [ERROR]")
+        sys.exit(1)
 
-        print(" ")
-        print("[...] Data extraction .. ")
-        smsExtractor(extractFolder, outputDir)
-        extractMedia(extractFolder, outputDir)
+    backup = args.backup
+    print(f"[INFO] Backup target : {args.backup}")
 
-        
+    if not args.output:
+        output = "./output"
+        os.makedirs(os.path.dirname(output), exist_ok=True)
+        print(f"[INFO] No output folder provided, using the default {output}")
+    else :
+        output = args.output
+        print(f"[INFO] Output folder {output}")
+
+    if not args.extract_folder:
+        extract_folder = "./extract"
+        os.makedirs(extract_folder, exist_ok=True)
+        print(f"[INFO] No extract folder provided, using the default {extract_folder}")
+    else:
+        extract_folder = args.extract_folder
+        print(f"[INFO] Extract folder {extract_folder}")
+
+
+    # Starting the investigation
+    start_time = datetime.now()
+    start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
+    print(f"[INFO] Starting the investigation at {start_time_str} - Good luck")
+
+
+    #@TODO
+    # Check for backup folder - is it empty ?
+    # Display a menu for the request
+    # Change the txt format for CSV
+
+    # Checkconfig
+    # mobileIdentification
+
+    # Encrypted backup management
