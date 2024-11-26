@@ -47,7 +47,7 @@ class SMS:
         messages = cursor.fetchall()
 
         # Print count
-        print("[+] %d SMS-MMS and iMessages founded ! [+]", len(messages))
+        print("[+] %d SMS-MMS and iMessages founded ! [+]" % len(messages))
 
         # Add and save
         folder_check(self.extract_folder)
@@ -58,7 +58,7 @@ class SMS:
                 f.write(f"> Date : {date}, From/To: {sender}, Content: {text}\n")
 
         conn.close()
-        logging.info("SMS-MMS and iMessages aquired and save to %s", dest_file+"sms.txt")
+        logging.info("SMS-MMS and iMessages aquired and save to %s" % dest_file)
         print("[+] SMS-MMS and iMessage content have been saved in %s [+]" % dest_file)
 
 
