@@ -9,9 +9,6 @@ iForen is a digital investigation tool specializing in iOS phones. This tool wil
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 ![Issue](https://img.shields.io/badge/Issue-0-green)
 ![Case solve](https://img.shields.io/badge/Case%20solve-300-red)
-## Screenshots
-
-![App Screenshot](https://github.com/Afk-flo/IForen/blob/main/image.png)
 
 
 ## Features
