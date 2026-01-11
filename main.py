@@ -2,6 +2,7 @@ import argparse
 import sys
 from datetime import datetime
 import os
+import logging
 
 # Extract
 from extract.sms import SMS
@@ -67,15 +68,35 @@ if __name__ == '__main__':
     start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
     print(f"[INFO] Starting the investigation at {start_time_str} - Good luck")
 
+
+    logging.basicConfig(
+    filename='IOS_data_acquisition.log',
+    filemode='a',
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+
+
     # Primo extraction - On fait simple 
     # SMS
-    smsExt = SMS()
+    smsExt = SMS(backup,logging,extract_folder,result=None)
     smsExt.extract()
 
-    Contacts.extracts()
-    CallHistory.extract()
-    Notes.extracts()
-    Calendar.extracts()
+    # Contact
+    contactExt = Contacts(backup,logging,extract_folder,result=None)
+    contactExt.extracts()
+
+    # Call History
+    callHistoryExt = CallHistory(backup,logging,extract_folder,result=None)
+    callHistoryExt.extract()
+
+    # Notes
+    notesExt = Notes(backup,logging,extract_folder,result=None)
+    notesExt.extracts()
+
+    # Calendar activites
+    calExt = Calendar(backup,logging,extract_folder,result=None)
+    calExt.extracts()
 
 
     #@TODO
