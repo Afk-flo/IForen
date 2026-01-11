@@ -7,9 +7,8 @@ from utils.utils import create_connection, folder_check
 PATH = "HomeDomain/Library/SMS/sms.db"
 
 class SMS:
-    def __init__(self, backup_path, log, result, extract_folder):
+    def __init__(self, backup_path, log, extract_folder):
         self.log = log
-        self.result = result
         self.backup_path = backup_path
         self.extract_folder = extract_folder
 

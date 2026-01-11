@@ -11,6 +11,9 @@ from extract.calendar import Calendar
 from extract.notes import Notes
 from extract.contacts import Contacts
 
+# Utils/Func
+from func.backupManager import manageManifest
+
 banner = """
  ________  ______   ______   ______    ______   ___   __      
 /_______/\/_____/\ /_____/\ /_____/\  /_____/\ /__/\ /__/\    
@@ -64,9 +67,11 @@ if __name__ == '__main__':
 
 
     # Starting the investigation
+    #sha = exec("sha256sum " + backup)
+    print(f"[INFO] Hash of the backup is ")
     start_time = datetime.now()
     start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
-    print(f"[INFO] Starting the investigation at {start_time_str} - Good luck")
+    print(f"[INFO] Starting the investigation at {start_time_str}")
 
 
     logging.basicConfig(
@@ -75,27 +80,29 @@ if __name__ == '__main__':
     format='%(asctime)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+    
+    ### Extract pré-D => Old functions
+    manageManifest(backup,extract_folder) # ManifestDB
 
-
-    # Primo extraction - On fait simple 
+    # Primo extraction post-d - On fait simple 
     # SMS
-    smsExt = SMS(backup,logging,extract_folder,result=None)
+    smsExt = SMS(extract_folder,logging,output)
     smsExt.extract()
 
     # Contact
-    contactExt = Contacts(backup,logging,extract_folder,result=None)
+    contactExt = Contacts(extract_folder,logging,output, )
     contactExt.extracts()
 
     # Call History
-    callHistoryExt = CallHistory(backup,logging,extract_folder,result=None)
+    callHistoryExt = CallHistory(extract_folder,logging,output, )
     callHistoryExt.extract()
 
     # Notes
-    notesExt = Notes(backup,logging,extract_folder,result=None)
+    notesExt = Notes(extract_folder,logging,output, )
     notesExt.extracts()
 
     # Calendar activites
-    calExt = Calendar(backup,logging,extract_folder,result=None)
+    calExt = Calendar(extract_folder,logging,output, )
     calExt.extracts()
 
 
