@@ -60,6 +60,9 @@ if __name__ == '__main__':
     start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
     print(f"[INFO] Starting the investigation at {start_time_str} - Good luck")
 
+    # SMS
+    
+
 
     #@TODO
     # Check for backup folder - is it empty ?
@@ -68,5 +71,6 @@ if __name__ == '__main__':
 
     # Checkconfig
     # mobileIdentification
+
 
     # Encrypted backup management
