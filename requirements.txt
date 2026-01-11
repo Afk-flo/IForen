@@ -1,6 +1,4 @@
-pyimobiledevice
-subprocess
-os
+#pyimobiledevice
 frida # for futur memory analytics
 sqlite3
 plistlib

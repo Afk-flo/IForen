@@ -57,6 +57,16 @@ def manageManifest(backupFolder='./backup', outputDir="../output"):
     conn = sqlite3.connect(manifest_db)
     cursor = conn.cursor()
 
+    #### Encrypted check
+    import plistlib
+    manifest_plist = os.path.join(backupFolder, "Manifest.plist")
+    with open(manifest_plist, "rb") as f:
+        pl = plistlib.load(f)
+
+    if(pl.get("IsEncrypted")):
+        print(f"[ERROR] Manifest.db is encrypted - Exit")
+        return
+
     # Get the files 
     cursor.execute("SELECT fileID, domain, relativePath FROM Files")
     files = cursor.fetchall()
