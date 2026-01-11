@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 
-from func.utils.utils import create_connection, folder_check
+from utils.utils import create_connection, folder_check
 
 PATH = "HomeDomain/Library/AddressBook/AddressBook.sqlitedb"
 

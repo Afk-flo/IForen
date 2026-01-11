@@ -3,6 +3,13 @@ import sys
 from datetime import datetime
 import os
 
+# Extract
+from extract.sms import SMS
+from extract.call_history import CallHistory
+from extract.calendar import Calendar
+from extract.notes import Notes
+from extract.contacts import Contacts
+
 banner = """
  ________  ______   ______   ______    ______   ___   __      
 /_______/\/_____/\ /_____/\ /_____/\  /_____/\ /__/\ /__/\    
@@ -60,8 +67,15 @@ if __name__ == '__main__':
     start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
     print(f"[INFO] Starting the investigation at {start_time_str} - Good luck")
 
+    # Primo extraction - On fait simple 
     # SMS
-    
+    smsExt = SMS()
+    smsExt.extract()
+
+    Contacts.extracts()
+    CallHistory.extract()
+    Notes.extracts()
+    Calendar.extracts()
 
 
     #@TODO

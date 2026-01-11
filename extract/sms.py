@@ -2,7 +2,7 @@ import logging
 import sys
 import os
 
-from func.utils.utils import create_connection, folder_check
+from utils.utils import create_connection, folder_check
 
 PATH = "HomeDomain/Library/SMS/sms.db"
 
