@@ -65,9 +65,9 @@ def manageManifest(backupFolder='./backup', outputDir="../output"):
 
     if(pl.get("IsEncrypted")):
         print(f"[ERROR] Manifest.db is encrypted - Exit")
-        return
+        return 
 
-    # Get the files 
+    # Get the files  
     cursor.execute("SELECT fileID, domain, relativePath FROM Files")
     files = cursor.fetchall()
 
