@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 import os
 import logging
+import hashlib
 
 # Extract
 from extract.sms import SMS
@@ -26,6 +27,17 @@ banner = """
                                                    by @Afk-Flo
                                                     
                                                               """
+
+def get_sha256_hash(file_path):
+    """Calculate SHA256 hashy."""
+    sha256_hash = hashlib.sha256()
+    try:
+        with open(file_path, "rb") as f:
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha256_hash.update(byte_block)
+        return sha256_hash.hexdigest()
+    except IOError:
+        return None
 
 
 if __name__ == '__main__':
@@ -67,8 +79,20 @@ if __name__ == '__main__':
 
 
     # Starting the investigation
-    #sha = exec("sha256sum " + backup)
-    print(f"[INFO] Hash of the backup is ")
+    print("[INFO] Calculating hash of the backup...")
+    backup_hash = "N/A"
+    if os.path.isfile(backup):
+        backup_hash = get_sha256_hash(backup)
+    elif os.path.isdir(backup):
+        # If it's a directory, hash the Manifest.db as a fingerprint
+        manifest_path = os.path.join(backup, "Manifest.db")
+        if os.path.exists(manifest_path):
+            backup_hash = f"{get_sha256_hash(manifest_path)} (Manifest.db)"
+        else:
+            backup_hash = "Directory (Manifest.db not found)"
+    print(f"[INFO] Hash of the backup is {backup_hash}")
+
+
     start_time = datetime.now()
     start_time_str = start_time.strftime("%d-%m-%Y %H:%M:%S")
     print(f"[INFO] Starting the investigation at {start_time_str}")
