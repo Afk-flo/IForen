@@ -12,6 +12,7 @@ from extract.calendar import Calendar
 from extract.notes import Notes
 from extract.contacts import Contacts
 from extract.applications import Applications
+from extract.safari import Safari
 
 # Utils/Func
 from func.backupManager import manageManifest
@@ -133,6 +134,10 @@ if __name__ == '__main__':
     # Applications
     appExt = Applications(backup,logging,output)
     appExt.extract()
+
+    # Safari
+    safariExt = Safari(extract_folder,logging,output)
+    safariExt.extract()
 
 
     #@TODO
