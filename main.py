@@ -11,6 +11,7 @@ from extract.call_history import CallHistory
 from extract.calendar import Calendar
 from extract.notes import Notes
 from extract.contacts import Contacts
+from extract.applications import Applications
 
 # Utils/Func
 from func.backupManager import manageManifest
@@ -128,6 +129,10 @@ if __name__ == '__main__':
     # Calendar activites
     calExt = Calendar(extract_folder,logging,output, )
     calExt.extracts()
+
+    # Applications
+    appExt = Applications(backup,logging,output)
+    appExt.extract()
 
 
     #@TODO
