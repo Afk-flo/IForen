@@ -1,4 +1,5 @@
 import logging
+import sqlite3
 import sys
 import os
 
@@ -32,9 +33,13 @@ class SMS:
         ORDER BY message_date ASC;
         """
 
-        cursor.execute(query)
-        # Messages aquisition
-        messages = cursor.fetchall()
+        try:
+            cursor.execute(query)
+            # Messages aquisition
+            messages = cursor.fetchall()
+        except sqlite3.Error as e:
+            print(f"[-] SQLite error: {e} [-]")
+            return
 
         # Print count
         print("[+] %d SMS-MMS and iMessages founded ! [+]" % len(messages))

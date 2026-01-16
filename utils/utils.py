@@ -24,7 +24,12 @@ def create_connection(backup_path, db_file) -> sqlite3.Connection|None:
     try :
         if not os.path.exists(final_path):
             raise FileNotFoundError("File not found")
-        conn = sqlite3.connect(final_path)
+        
+        #    conn = sqlite3.connect(final_path)
+        if os.path.getsize(final_path) == 0:
+            raise ValueError("Database file is empty")
+            
+        conn = sqlite3.connect(f"file:{final_path}?mode=ro", uri=True)
         logging.info("[*] Connected to database for %s [*]", final_path)
         return conn
     except Exception as e:
