@@ -4,7 +4,7 @@ import os
 
 from utils.utils import create_connection, folder_check
 
-PATH = "HomeDomain/Library/SMS/sms_repare.db"
+PATH = "HomeDomain/Library/SMS/sms.db"
 
 class SMS:
     def __init__(self, backup_path, log, extract_folder):

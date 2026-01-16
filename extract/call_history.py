@@ -4,12 +4,13 @@ import sys
 
 from utils.utils import create_connection, folder_check
 
-PATH = "HomeDomain/Library/AddressBook/AddressBook.sqlitedb"
+PATH = "HomeDomain/Library/CallHistoryDB/CallHistory.storedata"
 
 # Encrypted backup only
 
 class CallHistory:
-    def __init__(self, backup_path, extract_folder):
+    def __init__(self, backup_path, log, extract_folder):
+        self.log = log
         self.backup_path = backup_path
         self.extract_folder = extract_folder
 
@@ -26,7 +27,7 @@ class CallHistory:
 
         query = """
         SELECT
-            ZADDRESS, ZDATE, ZDURATION, ZLOCATION, ZSERVICE_PROVIDER
+            ZADDRESS, ZDATE, ZDURATION, ZLOCATION, ZSERVICE_PROVIDER, ZORIGINATED, ZANSWERED
         FROM
             ZCALLRECORD
         """
@@ -43,7 +44,7 @@ class CallHistory:
         with open(dest_file, "w+") as f:
             for call in calls:
                 #@TODO Get information about the query response
-                f.write('- %s' % call)
+                f.write(f"> Address: {call[0]} | Date: {call[1]} | Duration: {call[2]} | Location: {call[3]} | Service: {call[4]} | Originated: {call[5]} | Answered: {call[6]}\n")
 
         conn.close()
         logging.info("Call history acquired and saved to %s" % dest_file)
