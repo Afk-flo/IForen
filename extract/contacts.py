@@ -8,9 +8,8 @@ from utils.utils import create_connection, folder_check
 PATH = "HomeDomain/Library/AddressBook/AddressBook.sqlitedb"
 
 class Contacts:
-    def __init__(self, backup_path, log, result, extract_folder):
+    def __init__(self, backup_path, log, extract_folder):
         self.log = log
-        self.result = result
         self.backup_path = backup_path
         self.extract_folder = extract_folder
 
@@ -25,11 +24,7 @@ class Contacts:
 
         cursor = conn.cursor()
         query = """
-        SELECT
-            person.first, person.middle, person.last, person.organization
-        FROM 
-            ABPerson
-        ORDER BY person.rowid ASC;
+        SELECT first, middle, last, organization FROM  ABPerson ORDER BY ROWID ASC;
         """
 
         #@TODO -> Check for ADMMultiValue
@@ -38,7 +33,7 @@ class Contacts:
         cursor.execute(query)
         contacts = cursor.fetchall()
 
-        print("[+] %d contacts found ! ", len(contacts))
+        print(f"[+] {len(contacts)} contacts found ! ")
 
         # Saving contacts
         folder_check(self.extract_folder)
@@ -49,5 +44,5 @@ class Contacts:
                 f.write(f"> {first} {middle} {last} - {organization}\n")
 
         conn.close()
-        print("[+] Contacts extracted successfully [+]")
+        print("[+] Contacts content have been saved in ./tmp/output/contacts.txt [+]")
         logging.info("Contacts extracted and saved")

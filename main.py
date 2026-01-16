@@ -118,7 +118,7 @@ if __name__ == '__main__':
     smsExt.extract()
 
     # Contact
-    contactExt = Contacts(extract_folder,logging,output, )
+    contactExt = Contacts(extract_folder,logging,output)
     contactExt.extracts()
  
     # Call History

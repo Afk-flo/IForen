@@ -4,7 +4,7 @@ import os
 
 from utils.utils import create_connection, folder_check
 
-PATH = "HomeDomain/Library/SMS/sms.db"
+PATH = "HomeDomain/Library/SMS/sms_repare.db"
 
 class SMS:
     def __init__(self, backup_path, log, extract_folder):
@@ -30,15 +30,6 @@ class SMS:
         FROM message
         LEFT JOIN handle ON message.handle_id = handle.rowid
         ORDER BY message_date ASC;
-        """
-
-        """
-        Second query : 
-        SELECT
-            message.*
-            handle.id as "number"
-        FROM message, handle
-        WHERE handle.rowid = message.handle_id
         """
 
         cursor.execute(query)

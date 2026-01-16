@@ -9,9 +9,8 @@ PATH = "HomeDomain/Library/AddressBook/AddressBook.sqlitedb"
 # Encrypted backup only
 
 class CallHistory:
-    def __init__(self, backup_path, result, extract_folder):
+    def __init__(self, backup_path, extract_folder):
         self.backup_path = backup_path
-        self.result = result
         self.extract_folder = extract_folder
 
     def extract(self):
