@@ -58,15 +58,18 @@ def manageManifest(backupFolder='./backup', outputDir="../output"):
     cursor = conn.cursor()
 
     #### Encrypted check
+    """
     import plistlib
     manifest_plist = os.path.join(backupFolder, "Manifest.plist")
     with open(manifest_plist, "rb") as f:
         pl = plistlib.load(f)
 
-    if(pl.get("IsEncrypted")):
-        print(f"[ERROR] Manifest.db is encrypted - Exit")
-        return 
+    if pl.get("IsEncrypted"):
+        print(f"[ERROR] Manifest.db is encrypted (IsEncrypted={pl.get('IsEncrypted')}) - Exit")
+        return False
         # exit(1)
+        
+    """
 
     # Get the files  
     cursor.execute("SELECT fileID, domain, relativePath FROM Files")
@@ -98,5 +101,5 @@ def manageManifest(backupFolder='./backup', outputDir="../output"):
             print(f"Error while copying the Sqlite {src} : {e}")
 
     conn.close()
-    print(f"[+] Files extracted - Available here {dest_dir}")
-   
+    print(f"[+] Files extracted - Available here {outputDir}")
+    return True

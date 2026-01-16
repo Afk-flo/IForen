@@ -25,10 +25,10 @@ class SMS:
         query = """
         SELECT 
             message.date as message_date,
-            handle.is as sender,
+            handle.id as sender,
             message.text as text
         FROM message
-        LEFT JOIN handle ON message.handle = handle.id
+        LEFT JOIN handle ON message.handle_id = handle.rowid
         ORDER BY message_date ASC;
         """
 

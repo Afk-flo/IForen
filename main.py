@@ -64,7 +64,7 @@ if __name__ == '__main__':
     print(f"[INFO] Backup target : {args.backup}")
 
     if not args.output:
-        output = "./output"
+        output = "./tmp/output"
         os.makedirs(os.path.dirname(output), exist_ok=True)
         print(f"[INFO] No output folder provided, using the default {output}")
     else :
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         print(f"[INFO] Output folder {output}")
 
     if not args.extract_folder:
-        extract_folder = "./extract"
+        extract_folder = "./tmp/extract"
         os.makedirs(extract_folder, exist_ok=True)
         print(f"[INFO] No extract folder provided, using the default {extract_folder}")
     else:
@@ -108,7 +108,9 @@ if __name__ == '__main__':
 )
     
     ### Extract pré-D => Old functions
-    manageManifest(backup,extract_folder) # ManifestDB
+    if not manageManifest(backup,extract_folder): # ManifestDB
+        print("[-] Extraction failed or aborted.")
+        sys.exit(1)
 
     # Primo extraction post-d - On fait simple 
     # SMS
@@ -118,7 +120,7 @@ if __name__ == '__main__':
     # Contact
     contactExt = Contacts(extract_folder,logging,output, )
     contactExt.extracts()
-
+ 
     # Call History
     callHistoryExt = CallHistory(extract_folder,logging,output, )
     callHistoryExt.extract()
