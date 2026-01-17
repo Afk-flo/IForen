@@ -57,7 +57,7 @@ Then, you can launch the application :
     python3 app.py
 
 ```
-You'll able to get to the app at ```http://localhost:5000```
+You'll able to get to see everything right away 
 
 
 ## Authors
